@@ -13,12 +13,14 @@ public class ProductInventory {
 		this.bucket = new HashMap<>();
 	}
 
-	public void addProduct(String productName, int productQuantity) {
+	public int addProduct(String productName, int productQuantity) {
 		if (bucket.containsKey(productName)) {
 			int currentQuantity = bucket.get(productName);
 			bucket.put(productName, currentQuantity + productQuantity);
+			return currentQuantity+productQuantity;
 		} else {
 			bucket.put(productName, productQuantity);
+			return productQuantity;
 		}
 
 	}

@@ -137,5 +137,12 @@ public class CoinInventory {
 		return change;
 
 	}
+	public int getCoinDetail(String coinType)throws NoSuchProductException{
+		if(bucket.containsKey(coinType)){
+			return bucket.get(coinType);
+		}else {
+			throw new NoSuchProductException(coinType+" does not exist");
+		}
+	}
 
 }
