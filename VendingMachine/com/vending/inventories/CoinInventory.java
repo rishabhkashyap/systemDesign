@@ -25,14 +25,7 @@ public class CoinInventory {
 		}
 	}
 
-	public boolean hasCoin(String coinType) {
-		if (bucket.containsKey(coinType)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
+	
 	public void clearCoinInventory() {
 		bucket.clear();
 	}
@@ -109,28 +102,37 @@ public class CoinInventory {
 
 	}
 
-	public List<Coin> getRefund(int money) {
+	public List<Coin> getRefund(int money) throws NoSuchProductException, OutOfStockException {
 		List<Coin> change = new ArrayList<>();
 		while (money != 0) {
-			if (money >= Coin.QUATER.getDenomination() && hasCoin(Coin.QUATER.toString())) {
+			if (money >= Coin.QUATER.getDenomination() && hasCoin(Coin.QUATER.toString())
+					&& getCoinDetail(Coin.QUATER.toString())>0) {
+				System.out.println(hasCoin(Coin.QUATER.toString()));
 				change.add(Coin.QUATER);
 				money = money - Coin.QUATER.getDenomination();
+				deductCoin(Coin.QUATER.toString());
 			}
 
-			if (money >= Coin.DIME.getDenomination() && hasCoin(Coin.DIME.toString())) {
+			if (money >= Coin.DIME.getDenomination() && hasCoin(Coin.DIME.toString())
+					&& getCoinDetail(Coin.DIME.toString())>0) {
 				change.add(Coin.DIME);
 				money = money - Coin.DIME.getDenomination();
+				deductCoin(Coin.DIME.toString());
 			}
 
-			if (money >= Coin.NICKEL.getDenomination() && hasCoin(Coin.NICKEL.toString())) {
+			if (money >= Coin.NICKEL.getDenomination() && hasCoin(Coin.NICKEL.toString())
+					&& getCoinDetail(Coin.NICKEL.toString())>0) {
 				change.add(Coin.NICKEL);
 				money = money - Coin.NICKEL.getDenomination();
+				deductCoin(Coin.NICKEL.toString());
 			}
 
-			if (money >= Coin.PENNY.getDenomination() && hasCoin(Coin.PENNY.toString())) {
+			if (money >= Coin.PENNY.getDenomination() && hasCoin(Coin.PENNY.toString())
+					&& getCoinDetail(Coin.PENNY.toString())>0) {
 
 				change.add(Coin.PENNY);
 				money = money - Coin.PENNY.getDenomination();
+				deductCoin(Coin.PENNY.toString());
 			}
 		}
 
@@ -144,5 +146,15 @@ public class CoinInventory {
 			throw new NoSuchProductException(coinType+" does not exist");
 		}
 	}
+	
+	
+	public boolean hasCoin(String coinType) {
+		if (bucket.containsKey(coinType)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 
 }
