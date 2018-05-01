@@ -41,14 +41,7 @@ public class ProductInventory {
 
 	}
 
-	public boolean isProductAvailable(String productName) {
-		if (bucket.containsKey(productName) && bucket.get(productName) > 0) {
-			return true;
-		} else {
-			return false;
-		}
-
-	}
+	
 
 	public void clearInventory() {
 		bucket.clear();
@@ -62,5 +55,26 @@ public class ProductInventory {
 		}
 
 	}
+	
+	public int getProductCount(String ProductName) {
+		if(bucket.containsKey(ProductName)) {
+			return bucket.get(ProductName);
+		}else {
+			return -1;
+		}
+		
+	}
+	
+	public boolean hasProduct(String productName) {
+		if(bucket.containsKey(productName) && bucket.get(productName)>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	
+	
+	
 
 }

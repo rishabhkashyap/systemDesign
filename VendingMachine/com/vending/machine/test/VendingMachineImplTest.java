@@ -18,9 +18,7 @@ public class VendingMachineImplTest {
 	@Before
 	public void setUp() throws Exception {
 		vendingMachine=new VendingMachineImpl();
-		Product coke=new Coke();
 		Product pepsi=new Pepsi();
-		Product soda=new Soda();
 		vendingMachine.addProduct(pepsi, 20);
 	
 		
@@ -47,8 +45,11 @@ public class VendingMachineImplTest {
 	}
 
 	@Test
-	public void testSellProduct() {
-		fail("Not yet implemented");
+	public void testSellProductHappyPath() {
+		Product coke=new Coke();
+		coke.setProductPrice(35);
+		vendingMachine.addProduct(coke, 20);
+		
 	}
 
 	@Test

@@ -93,5 +93,12 @@ public class CoinInventoryTest {
 		cointInventory.deductCoin(Coin.QUATER.toString());
 
 	}
+	
+	@Test(expected = NoSuchProductException.class)
+	public void testDeductMoneyWhenCoinIsNotAdded() throws NoSuchProductException, OutOfStockException {
+		
+		cointInventory.deductCoin(Coin.QUATER.toString());
+
+	}
 
 }
