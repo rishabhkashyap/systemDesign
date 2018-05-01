@@ -12,9 +12,10 @@ import com.vending.exception.OutOfStockException;
 public interface VendingMachine {
 
 	public Product getProductDetails(String productName);
-	public List<Coin> sellProduct(String productName,int money) throws OutOfStockException, InsufficientMoneyException;
+	public List<Coin> sellProduct(String productName,int money) throws  InsufficientMoneyException;
 	public int addProduct(Product product,int quantity);
 	public Set<Product> getProducts();
 	public int getProductCount(String productName);
+	public void addCoins(String coinType,int quantity);
 
 }

@@ -30,14 +30,14 @@ public class VendingMachineImpl implements VendingMachine {
 		List<Coin> change = new ArrayList<>();
 		Product product = getProductDetails(productName);
 		try {
-			if (product == null || productInventory.hasProduct(product.getProductName())) {
-				throw new OutOfStockException(productName + "  is  currently unavailable.Try some other drink.");
+			if (product == null || !productInventory.hasProduct(product.getProductName())) {
+				System.out.print("Please try something else");
 			} else if (money < product.getPrice()) {
 				throw new InsufficientMoneyException("Insufficient money for " + productName);
 			} else {
-				updateProductInventory(productName);
+				updateProductInventory(product.getProductName());
 				System.out.println("Enjoy  your " + product.getProductName());
-				updateCoinInventory(money, product.getPrice());
+				change=updateCoinInventory(money, product.getPrice());
 
 			}
 
@@ -65,7 +65,7 @@ public class VendingMachineImpl implements VendingMachine {
 	private List<Coin> updateCoinInventory(int money, int productPrice)
 			throws NoSuchProductException, OutOfStockException {
 		List<Coin> change = new ArrayList<>();
-		int balance = money = productPrice;
+		int balance = money - productPrice;
 		coinInventory.addAndArrangeMoney(productPrice);
 		if (balance > 0) {
 			change = coinInventory.getRefund(balance);
@@ -96,6 +96,12 @@ public class VendingMachineImpl implements VendingMachine {
 	@Override
 	public int getProductCount(String productName) {
 		return productInventory.getProductCount(productName);
+		
+	}
+
+	@Override
+	public void addCoins(String coinType, int quantity) {
+		coinInventory.addCoins(coinType, quantity);
 		
 	}
 	
